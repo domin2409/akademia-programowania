@@ -33,7 +33,12 @@ func (r *Reddit) Fetch() error {
 	if err != nil {
 		return err
 	}
-	defer resp.Body.Close()
+	defer func(Body io.ReadCloser) {
+		err := Body.Close()
+		if err != nil {
+
+		}
+	}(resp.Body)
 	err = json.NewDecoder(resp.Body).Decode(&r.r)
 	if err != nil {
 		return err

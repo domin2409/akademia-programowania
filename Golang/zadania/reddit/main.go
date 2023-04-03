@@ -19,6 +19,12 @@ func main() {
 	//defer f.
 
 	w, _ = os.Create("output.txt")
-	f.Fetch()
-	f.Save(w)
+	err := f.Fetch()
+	if err != nil {
+		return
+	}
+	err = f.Save(w)
+	if err != nil {
+		return
+	}
 }
